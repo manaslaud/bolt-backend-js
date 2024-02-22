@@ -9,7 +9,7 @@ import getEnv from "../helpers/getEnv.js";
 
 export const Registercontroller = catchAsync(
   async (req: Request, res: Response) => {
-    let { username, password } = req.body;
+    let { username, password, isTeacher, name, email, institution_name  } = req.body;
     username = username.trim();
     password = password.trim();
 
@@ -48,6 +48,10 @@ export const Registercontroller = catchAsync(
       _id: new mongoose.Types.ObjectId(),
       username,
       passwordHash: hashedpassword,
+      isTeacher,
+      name,
+      email,
+      institution_name,
     });
     await newUser.save();
     const token = jwt.sign({ userID: newUser._id }, getEnv.JWT_KEY, {

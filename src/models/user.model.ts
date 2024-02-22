@@ -6,6 +6,10 @@ export interface UserType extends Document {
     username: string;
     passwordHash: string;
     recording: Array<StrokeType>
+    isTeacher: boolean;
+    name: string;
+    email: string;
+    institution_name: string
 }
 
 const userSchema = new mongoose.Schema<UserType>({
@@ -14,7 +18,11 @@ const userSchema = new mongoose.Schema<UserType>({
     passwordHash: { type: String, required: true },
     recording: {
         type: [{ type: Schema.Types.ObjectId, ref: 'Recording' }],
-    }
+    },
+    isTeacher: { type: Boolean, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    institution_name: { type: String, required: true }
 });
 
 const User = mongoose.model<UserType>('User', userSchema);

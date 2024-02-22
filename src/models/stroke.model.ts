@@ -9,6 +9,7 @@ export interface StrokeType extends Document {
   endTime: number;
 }
 
+
 export const RecordingSchema = new mongoose.Schema<StrokeType>({
   data: {
     type: [[Number]],
