@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-export interface StrokeType extends Document {
+interface StrokeType extends Document {
   strokeColor: string;
   positionArray: Array<[number, number]>
   strokeSize: number;
@@ -8,7 +8,12 @@ export interface StrokeType extends Document {
   endTime: number;
 }
 
-export const StrokeSchema = new mongoose.Schema<StrokeType>({
+export interface StrokeSessionType extends StrokeType{
+  session_name: string;
+  data: StrokeType[]
+}
+
+const StrokeSchema = new mongoose.Schema<StrokeType>({
   strokeColor: {
     type: String,
     required: true,
@@ -27,6 +32,17 @@ export const StrokeSchema = new mongoose.Schema<StrokeType>({
   },
   endTime: {
     type: Number,
+    required: true,
+  },
+});
+
+export const StrokeSessionSchema = new mongoose.Schema<StrokeSessionType>({
+  session_name: {
+    type: String,
+    required: true,
+  },
+  data: {
+    type: [StrokeSchema],
     required: true,
   },
 });
