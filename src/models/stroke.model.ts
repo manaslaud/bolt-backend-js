@@ -11,6 +11,7 @@ interface StrokeType extends Document {
 export interface StrokeSessionType extends StrokeType{
   session_name: string;
   data: StrokeType[]
+  audioStream: Buffer;
 }
 
 const StrokeSchema = new mongoose.Schema<StrokeType>({
@@ -43,6 +44,10 @@ export const StrokeSessionSchema = new mongoose.Schema<StrokeSessionType>({
   },
   data: {
     type: [StrokeSchema],
+    required: true,
+  },
+  audioStream: {
+    type: Buffer,
     required: true,
   },
 });
