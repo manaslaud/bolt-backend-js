@@ -19,9 +19,9 @@ export const uploadController = catchAsync(
 
 export const getRecordingController = catchAsync(
     async (req: Request, res: Response) => {
-        const { id } = req.body.decoded;
+        const { userID } = req.body.decoded;
         const session_name = req.query.session_name as string;
-        const user = await User.findById(id).populate('recording');
+        const user = await User.findById(userID).populate('recording');
         if (!user) {
             return res.status(404).json({ error: "User not found" })
         }
