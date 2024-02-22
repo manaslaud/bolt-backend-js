@@ -1,31 +1,25 @@
 import mongoose, { Document } from 'mongoose';
 
 export interface StrokeType extends Document {
-  stroke: string;
-  color: string;
-  data: Array<[number, number]>
-  size: number;
+  strokeColor: string;
+  positionArray: Array<[number, number]>
+  strokeSize: number;
   startTime: number;
   endTime: number;
 }
 
-
-export const RecordingSchema = new mongoose.Schema<StrokeType>({
-  data: {
+export const StrokeSchema = new mongoose.Schema<StrokeType>({
+  strokeColor: {
+    type: String,
+    required: true,
+  },
+  positionArray: {
     type: [[Number]],
     required: true,
   },
-  color: {
-    type: String,
-    default: "Black",
-  },
-  size: {
+  strokeSize: {
     type: Number,
-    default: 10,
-  },
-  stroke: {
-    type: String,
-    default: "10",
+    required: true,
   },
   startTime: {
     type: Number,
@@ -34,5 +28,5 @@ export const RecordingSchema = new mongoose.Schema<StrokeType>({
   endTime: {
     type: Number,
     required: true,
-  }
+  },
 });

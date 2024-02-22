@@ -9,7 +9,6 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
         return res.status(400).json({ error: 'Invalid token', verified: false });
     }
     const token = req.headers.authorization.split(' ')[1];
-
     jwt.verify(token, envGet.JWT_KEY, function (err, decoded) {
         if (err) {
             logger.error(err.message + "by" + req.ip);

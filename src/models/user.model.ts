@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { StrokeType } from './stroke.model.js';
+import { StrokeSchema, StrokeType } from './stroke.model.js';
 
 export interface UserType extends Document {
     _id: Schema.Types.ObjectId;
     username: string;
     passwordHash: string;
-    recording: Array<StrokeType>
+    recording: StrokeType[][]
     isTeacher: boolean;
     name: string;
     email: string;
@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema<UserType>({
     username: { type: String, required: true, unique: true },
     passwordHash: { type: String, required: true },
     recording: {
-        type: [{ type: Schema.Types.ObjectId, ref: 'Recording' }],
+        type: [[StrokeSchema]],
+        default:[]
     },
     isTeacher: { type: Boolean, required: true },
     name: { type: String, required: true },

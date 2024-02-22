@@ -4,14 +4,13 @@ import User from "../models/user.model.js";
 
 export const uploadController = catchAsync(
     async (req: Request, res: Response) => {
-        const { id } = req.body.decoded;
+        const { userID } = req.body.decoded;
         const { recording } = req.body;
-        const user = await User.findById(id);
+        const user = await User.findById(userID);
         if (!user) {
             return res.status(404).json({ error: "User not found" })
         }
         user.recording.push(recording);
-
         await user.save();
 
         return res.status(200).json({ message: 'Recording successfully updated!' });
